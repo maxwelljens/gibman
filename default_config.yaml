@@ -1,0 +1,39 @@
+# This is the default config file for GibMan. Refer to README.md
+# for further information on how to configure your instance of GibMan.
+
+# Location of the GZDoom engine
+engine: /path/to/DOOM/gzdoom
+
+iwad:
+# Here you can list IWADs with the following format:
+# - name: <name>
+#   path: <path to IWAD>
+# The name is used in the preset section of the configuration file.
+# The IWAD listed at the top is used as the default.
+# Paths to the IWAD files
+  - name: doom2
+    path: /path/to/DOOM/DOOM2.WAD
+
+wad:
+# Here you can list WADs with the following format:
+# - name: <name>
+#   path: <path to WAD>
+# The name is used in the preset section of the configuration file.
+  - name: eviternity
+    path: /path/to/DOOM/Eviternity.wad
+  - name: brutality
+    path: /path/to/DOOM/Project_Brutality.zip
+
+preset:
+# Non-functional example preset outlined below, which you can invoke by
+# running 'gibman -p example'
+# You can omit iwad and engine values if you specified default_iwad and
+# default_engine in [preset] (see above)
+# Preset names can be anything as long as they are only alphanumeric
+# characters, and underscores
+  - name: example
+    iwad: doom2
+    wad:
+  # Load order is top to bottom.
+      - eviternity
+      - brutality
