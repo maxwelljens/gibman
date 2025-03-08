@@ -48,9 +48,10 @@ gibman -p example
 ```
 
 This will run GZDoom with the DOOM 2 IWAD and Eviternity WAD. More information
-can be found in `default_config.yaml`, which is also placed in
-`$XDG_CONFIG_HOME/gibman/gibman.yaml` when running the program for the first
-time.
+can be found in
+[`default_config.yaml`](https://github.com/maxwelljens/gibman/blob/master/default_config.yaml),
+which is also placed in `$XDG_CONFIG_HOME/gibman/gibman.yaml` when running the
+program for the first time.
 
 ## How does `gibman` work?
 
@@ -103,6 +104,12 @@ editor to read the `gibman.yaml` file again. It looks like the following:
 
 - **`-v/--verbose`**: Run program in verbose mode. At the moment this only
 means printing the shell string before launching the game.
+
+## Environment variables
+
+While `gibman` does make extensive use of ANSI colour sequences in its output,
+it does respect the [`NO_COLOR`](https://no-color.org/) environment variable,
+disabling colour if it is set to any value.
 
 ## Installing
 
