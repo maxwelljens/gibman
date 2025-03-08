@@ -2,32 +2,38 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import cligen, streams, os, osproc, yaml
-include configinit
+import cligen, config, osproc, utils
 
 const Version = """
-gibman 0.1.0
+gibman 1.0.0
 Program written by Maxwell Jensen (c) 2025
 Licensed under European Union Public Licence 1.2.
-For more information, consult README.md or man page"""
+For more information, consult README.md"""
 
-proc argParser(arguments: seq[string] = @[], preset = "", version = false) =
+proc argParser(list_presets = false, preset = "", verbose = false, version = false) =
   if version:
     echo Version
     return
 
-  let parsedConfig = parseConfig(preset)
-  let process = startProcess(parsedConfig.engine, "", parsedConfig.args)
-  while process.running():
-    stdout.write(process.peekableOutputStream().readChar())
+  let config = parseConfig(preset)
+  let shellCmd = constructShellCmd(config, preset)
+
+  if list_presets:
+    echoPresetTable(config.preset)
+    return
+  if verbose:
+    shellCmd.echoShellCmd
+
+  let process = startProcess(shellCmd.engine, "", shellCmd.args)
   process.close()
 
 dispatch argParser,
   cmdName="gibman",
-  doc="A WAD manager for GZDoom",
+  doc="A DOOM WAD manager for nerds",
   help={
   "help": "Print this information",
   "help-syntax": "Program interface details",
-  "arguments": "Pass additional arguments to GZDoom",
+  "list-presets": "List presets defined in configuration file",
   "preset": "Specify preset to run DOOM with",
+  "verbose": "Run program in verbose mode",
   "version": "Print version information"}
