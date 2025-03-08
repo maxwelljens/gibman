@@ -1,8 +1,14 @@
 # This is the default config file for GibMan. Refer to README.md
 # for further information on how to configure your instance of GibMan.
 
-# Location of the GZDoom engine
-engine: /path/to/DOOM/gzdoom
+engine:
+# Here you can list engines with the following format:
+# - name: <name>
+#   path: <path to engine>
+# The name is used in the preset section of the configuration file.
+# The engine listed at the top is used as the default.
+  - name: gzdoom
+    path: /path/to/DOOM/GZDoom
 
 iwad:
 # Here you can list IWADs with the following format:
@@ -10,7 +16,6 @@ iwad:
 #   path: <path to IWAD>
 # The name is used in the preset section of the configuration file.
 # The IWAD listed at the top is used as the default.
-# Paths to the IWAD files
   - name: doom2
     path: /path/to/DOOM/DOOM2.WAD
 
@@ -25,15 +30,20 @@ wad:
     path: /path/to/DOOM/Project_Brutality.zip
 
 preset:
-# Non-functional example preset outlined below, which you can invoke by
+# Hypothetical example preset outlined below, which you can invoke by
 # running 'gibman -p example'
-# You can omit iwad and engine values if you specified default_iwad and
-# default_engine in [preset] (see above)
-# Preset names can be anything as long as they are only alphanumeric
-# characters, and underscores
   - name: example
+    description: A description to help you remember what the preset is for
+    engine: gzdoom
     iwad: doom2
     wad:
   # Load order is top to bottom.
       - eviternity
       - brutality
+  # Load additional arguments (args).
+  # For example, to make the Woof! engine run with the '-dog 2' option, you
+  # do the following:
+  # aargs:
+  #   - -dog
+  #   - 2
+    args: []
