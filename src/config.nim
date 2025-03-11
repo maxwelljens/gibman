@@ -2,35 +2,9 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import streams, os, yaml, utils
+import streams, os, types, yaml, utils
 
 const DefaultConfig = readFile("default_config.yaml")
-
-type ShellCmd = object
-  engine* : string
-  args* : seq[string]
-
-type ConfigEngineEntry = object
-  name : string
-  path : string
-type ConfigIWadEntry = object
-  name : string
-  path : string
-type ConfigWadEntry = object
-  name* : string
-  path* : string
-type ConfigPresetEntry = object
-  name* : string
-  description* : string
-  engine* : string
-  iwad* : string
-  wad* : seq[string]
-  args* : seq[string]
-type Config = object
-  iwad : seq[ConfigIWadEntry]
-  engine : seq[ConfigEngineEntry]
-  wad* : seq[ConfigWadEntry]
-  preset* : seq[ConfigPresetEntry]
 
 proc loadEngine(shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry) =
   for x in config.engine:

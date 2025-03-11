@@ -5,7 +5,7 @@
 import cligen, config, osproc, utils
 
 const Version = """
-gibman 1.0.0
+gibman 1.0.1
 Program written by Maxwell Jensen (c) 2025
 Licensed under European Union Public Licence 1.2.
 For more information, consult README.md"""
@@ -22,7 +22,7 @@ proc argParser(list_presets = false, preset = "", verbose = false, version = fal
     echoPresetTable(config.preset)
     return
   if verbose:
-    shellCmd.echoShellCmd
+    shellCmd.echoShellCmd()
 
   let process = startProcess(shellCmd.engine, "", shellCmd.args)
   process.close()

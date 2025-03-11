@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.0.1"
 author        = "Maxwell Jensen"
 description   = "A CLI DOOM WAD manager for nerds"
 license       = "EPL-2.0"

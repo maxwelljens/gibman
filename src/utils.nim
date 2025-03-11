@@ -2,7 +2,7 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import std/envvars, rainbow, nancy, strutils
+import std/envvars, rainbow, nancy, types, strutils
 
 proc throwError*(s: string, i: int = 1) =
   if existsEnv("NO_COLOR"):
@@ -17,7 +17,7 @@ proc echoWarn*(s: string) =
   else:
     echo("WARNING: ".rfYellow, s)
 
-proc echoPresetTable*[T](presets: seq[T]) =
+proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
   var table: TerminalTable
   var wads: string
   if existsEnv("NO_COLOR"):
@@ -45,7 +45,7 @@ proc echoPresetTable*[T](presets: seq[T]) =
     wads = ""
   table.echoTableSeps(80, boxSeps)
 
-proc echoShellCmd*[T](shellCmd: T) =
+proc echoShellCmd*(shellCmd: ref ShellCmd) =
   var str: string
   if existsEnv("NO_COLOR"):
     str = str & shellCmd.engine & " "
