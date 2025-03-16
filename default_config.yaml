@@ -23,7 +23,7 @@ search:
 # Here you can list paths where gibman will look for WADs. WADs defined in a
 # preset will be searched in these paths. The search is case-insensitive.
 # It is expected the files have either .wad, .pk3, or .zip file extensions.
-  - /home/media/DOOM
+  - /path/to/DOOM
 
 preset:
 # Hypothetical example preset outlined below, which you can invoke by
