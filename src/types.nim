@@ -26,5 +26,5 @@ type ConfigPresetEntry* = object
 type Config* = object
   iwad*: seq[ConfigIWadEntry]
   engine*: seq[ConfigEngineEntry]
-  search*: seq[string]
-  preset*: seq[ConfigPresetEntry]
+  search* {.defaultVal: @[].}: seq[string]
+  preset* {.defaultVal: @[].}: seq[ConfigPresetEntry]

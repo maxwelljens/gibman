@@ -5,6 +5,7 @@
 import streams, os, types, yaml, utils, unicode
 
 const DefaultConfig = slurp(".." / "default_config.yaml")
+const WadExts = [".wad", ".pk3", ".zip"]
 
 proc loadEngine(
     shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
@@ -27,6 +28,9 @@ proc loadIWad(
 proc loadWads(
     shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
 ) =
+  if specificPreset.wad != @[] and config.search == @[]:
+    echoWarn("WADs specified in preset, but there are no paths to search.")
+    return
   for wad in specificPreset.wad:
     var entryFound = false
     for searchPath in config.search:
@@ -34,7 +38,7 @@ proc loadWads(
         for file in walkDir(searchPath, checkDir = true):
           let splitFile = file.path.splitFile()
           if splitFile.name.toLower() == wad.toLower() and
-              splitFile.ext.toLower() in [".wad", ".pk3", ".zip"]:
+              splitFile.ext.toLower() in WadExts:
             shellCmd.args.add(["-file", file.path])
             entryFound = true
       except OSError as e:

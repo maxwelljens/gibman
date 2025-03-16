@@ -39,7 +39,6 @@ preset:
   # Load additional arguments (args).
   # For example, to make the Woof! engine run with the '-dog 2' option, you
   # do the following:
-  # aargs:
-  #   - -dog
-  #   - 2
-    args: []
+    args:
+      - -dog
+      - 2

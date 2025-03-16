@@ -64,8 +64,8 @@ string:
 /path/to/gzdoom -iwad /.../DOOM2.WAD -file /.../Eviternity.wad
 ```
 
-If you were to specify any `args` in your preset, those would be added at the
-end. For example:
+Or with backslashes, if you are on Windows. If you were to specify any `args`
+in your preset, those would be added at the end. For example:
 
 ```yaml
 args:
@@ -107,8 +107,8 @@ means printing the shell string before launching the game.
 
 ## Environment variables
 
-While `gibman` does make extensive use of ANSI colour sequences in its output,
-it does respect the [`NO_COLOR`](https://no-color.org/) environment variable,
+While `gibman` makes extensive use of ANSI colour sequences in its output, it
+does respect the [`NO_COLOR`](https://no-color.org/) environment variable,
 disabling colour if it is set to any value.
 
 ## Installing
