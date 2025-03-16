@@ -19,15 +19,11 @@ iwad:
   - name: doom2
     path: /path/to/DOOM/DOOM2.WAD
 
-wad:
-# Here you can list WADs with the following format:
-# - name: <name>
-#   path: <path to WAD>
-# The name is used in the preset section of the configuration file.
-  - name: eviternity
-    path: /path/to/DOOM/Eviternity.wad
-  - name: brutality
-    path: /path/to/DOOM/Project_Brutality.zip
+search:
+# Here you can list paths where gibman will look for WADs. WADs defined in a
+# preset will be searched in these paths. The search is case-insensitive.
+# It is expected the files have either .wad, .pk3, or .zip file extensions.
+  - /home/media/DOOM
 
 preset:
 # Hypothetical example preset outlined below, which you can invoke by
@@ -37,7 +33,7 @@ preset:
     engine: gzdoom
     iwad: doom2
     wad:
-  # Load order is top to bottom.
+  # Load order is top to bottom. Do not include file extensions.
       - eviternity
       - brutality
   # Load additional arguments (args).

@@ -21,15 +21,10 @@ proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
   var table: TerminalTable
   var wads: string
   if existsEnv("NO_COLOR"):
-    table.add "Name",
-      "Description",
-      "Engine",
-      "WADs"
+    table.add "Name", "Description", "Engine", "WADs"
   else:
     table.add "Name".rfYellow,
-      "Description".rfYellow,
-      "Engine".rfYellow,
-      "WADs".rfYellow
+      "Description".rfYellow, "Engine".rfYellow, "WADs".rfYellow
   for x in presets:
     if existsEnv("NO_COLOR"):
       wads = wads & x.iwad & ", "
@@ -38,10 +33,7 @@ proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
     for s in x.wad:
       wads = wads & s & ", "
     wads.removeSuffix(", ")
-    table.add x.name,
-      x.description,
-      x.engine,
-      wads
+    table.add x.name, x.description, x.engine, wads
     wads = ""
   table.echoTableSeps(80, boxSeps)
 

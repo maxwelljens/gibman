@@ -27,9 +27,8 @@ iwad:
   - name: doom2
     path: /path/to/DOOM2.WAD
 
-wad:
-  - name: eviternity
-    path: /path/to/Eviternity.wad
+search:
+  - /path/to/wads
 
 preset:
   - name: example
@@ -47,8 +46,9 @@ Run the following to run your `example` preset:
 gibman -p example
 ```
 
-This will run GZDoom with the DOOM 2 IWAD and Eviternity WAD. More information
-can be found in
+This will run GZDoom with the DOOM 2 IWAD and Eviternity WAD, if something like
+`Eviternity.WAD` exists in one of the directories outlined in the `search`
+section of the configuration file. More information can be found in
 [`default_config.yaml`](https://github.com/maxwelljens/gibman/blob/master/default_config.yaml),
 which is also placed in `$XDG_CONFIG_HOME/gibman/gibman.yaml` when running the
 program for the first time.

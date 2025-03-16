@@ -3,27 +3,27 @@
 # For more information, consult README.md or man page
 
 type ShellCmd* = object
-  engine* : string
-  args* : seq[string]
+  engine*: string
+  args*: seq[string]
 
 type ConfigEngineEntry* = object
-  name* : string
-  path* : string
+  name*: string
+  path*: string
+
 type ConfigIWadEntry* = object
-  name* : string
-  path* : string
-type ConfigWadEntry* = object
-  name* : string
-  path* : string
+  name*: string
+  path*: string
+
 type ConfigPresetEntry* = object
-  name* : string
-  description* : string
-  engine* : string
-  iwad* : string
-  wad* : seq[string]
-  args* : seq[string]
+  name*: string
+  description*: string
+  engine*: string
+  iwad*: string
+  wad*: seq[string]
+  args*: seq[string]
+
 type Config* = object
-  iwad* : seq[ConfigIWadEntry]
-  engine* : seq[ConfigEngineEntry]
-  wad* : seq[ConfigWadEntry]
-  preset* : seq[ConfigPresetEntry]
+  iwad*: seq[ConfigIWadEntry]
+  engine*: seq[ConfigEngineEntry]
+  search*: seq[string]
+  preset*: seq[ConfigPresetEntry]
