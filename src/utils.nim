@@ -2,7 +2,7 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import std/envvars, rainbow, nancy, types, strutils
+import std/envvars, rainbow, nancy, types
 
 proc throwError*(s: string, i: int = 1) =
   if existsEnv("NO_COLOR"):
@@ -20,19 +20,20 @@ proc echoWarn*(s: string) =
 proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
   var table: TerminalTable
   var wads: string
-  if existsEnv("NO_COLOR"):
+  let noColor = existsEnv("NO_COLOR")
+  if noColor:
     table.add "Name", "Description", "Engine", "WADs"
   else:
     table.add "Name".rfYellow,
       "Description".rfYellow, "Engine".rfYellow, "WADs".rfYellow
   for x in presets:
-    if existsEnv("NO_COLOR"):
-      wads = wads & x.iwad & ", "
+    if noColor:
+      wads.add x.iwad
     else:
-      wads = wads & x.iwad.rfGreen & ", "
+      wads.add x.iwad.rfGreen
     for s in x.wad:
-      wads = wads & s & ", "
-    wads.removeSuffix(", ")
+      wads.add ", "
+      wads.add s
     table.add x.name, x.description, x.engine, wads
     wads = ""
   table.echoTableSeps(80, boxSeps)
@@ -40,14 +41,16 @@ proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
 proc echoShellCmd*(shellCmd: ref ShellCmd) =
   var str: string
   if existsEnv("NO_COLOR"):
-    str = str & shellCmd.engine & " "
+    str.add shellCmd.engine
     for x in shellCmd.args:
-      str = str & x & " "
+      str.add " "
+      str.add x
   else:
-    str = str & shellCmd.engine.rfYellow & " "
+    str.add shellCmd.engine.rfYellow
     for x in shellCmd.args:
+      str.add " "
       if x.len > 0 and x[0] == '-':
-        str = str & x.rfGreen & " "
+        str.add x.rfGreen
       else:
-        str = str & x & " "
+        str.add x
   echo(str)
