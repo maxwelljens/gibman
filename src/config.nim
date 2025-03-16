@@ -4,7 +4,7 @@
 
 import streams, os, types, yaml, utils, unicode
 
-const DefaultConfig = readFile("default_config.yaml")
+const DefaultConfig = slurp(".." / "default_config.yaml")
 
 proc loadEngine(
     shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
