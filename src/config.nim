@@ -86,18 +86,13 @@ proc createDefaultConfig() =
     )
 
 proc parseConfig*(preset: string): Config =
-  var config: Config
-  var foundConfig = false
-  for file in walkDir(getConfigDir() / "gibman"):
-    let splitFile = file.path.splitFile()
-    if file.kind == pcFile and splitFile.name == "gibman":
-      foundConfig = true
-      var s = newFileStream(file.path)
-      load(s, config)
-      s.close()
-  if not foundConfig:
+  let configPath = getConfigDir() / "gibman" / "gibman.yaml"
+  if configPath.fileExists:
+    var s = newFileStream(configPath)
+    load(s, result)
+    s.close()
+  else:
     createDefaultConfig()
-  return config
 
 proc constructShellCmd*(config: Config, preset: string): ref ShellCmd =
   var shellCmd = new(ShellCmd)
