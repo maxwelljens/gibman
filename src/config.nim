@@ -8,7 +8,7 @@ const DefaultConfig = slurp(".." / "default_config.yaml")
 const WadExts = [".wad", ".pk3", ".zip"]
 
 proc loadEngine(
-    shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
+    shellCmd: var ShellCmd, config: Config, specificPreset: ConfigPresetEntry
 ) =
   for x in config.engine:
     if x.name == specificPreset.engine:
@@ -17,7 +17,7 @@ proc loadEngine(
   throwError("No engine '" & specificPreset.engine & "' has been found.")
 
 proc loadIWad(
-    shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
+    shellCmd: var ShellCmd, config: Config, specificPreset: ConfigPresetEntry
 ) =
   for x in config.iwad:
     if x.name == specificPreset.iwad:
@@ -26,7 +26,7 @@ proc loadIWad(
   throwError("No IWAD '" & specificPreset.iwad & "' has been found.")
 
 proc loadWads(
-    shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
+    shellCmd: var ShellCmd, config: Config, specificPreset: ConfigPresetEntry
 ) =
   if specificPreset.wad != @[] and config.search == @[]:
     echoWarn("WADs specified in preset, but there are no paths to search.")
@@ -51,12 +51,12 @@ proc loadWads(
     entryFound = false
 
 proc loadAdditionalArgs(
-    shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
+    shellCmd: var ShellCmd, config: Config, specificPreset: ConfigPresetEntry
 ) =
   for x in specificPreset.args:
     shellCmd.args.add(x)
 
-proc loadPreset(shellCmd: ref ShellCmd, config: Config, presetName: string) =
+proc loadPreset(shellCmd: var ShellCmd, config: Config, presetName: string) =
   for x in config.preset:
     if x.name == presetName:
       shellCmd.loadEngine(config, x)
@@ -99,11 +99,9 @@ proc parseConfig*(preset: string): Config =
     createDefaultConfig()
   return config
 
-proc constructShellCmd*(config: Config, preset: string): ref ShellCmd =
-  var shellCmd = new(ShellCmd)
+proc constructShellCmd*(config: Config, preset: string): ShellCmd =
   if preset != "":
-    shellCmd.loadPreset(config, preset)
+    result.loadPreset(config, preset)
   else:
-    shellCmd.engine = config.engine[0].path
-    shellCmd.args.add(["-iwad", config.iwad[0].path])
-  return shellCmd
+    result.engine = config.engine[0].path
+    result.args.add(["-iwad", config.iwad[0].path])

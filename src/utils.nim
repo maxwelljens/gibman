@@ -37,7 +37,7 @@ proc echoPresetTable*(presets: seq[ConfigPresetEntry]) =
     wads = ""
   table.echoTableSeps(80, boxSeps)
 
-proc echoShellCmd*(shellCmd: ref ShellCmd) =
+proc echoShellCmd*(shellCmd: ShellCmd) =
   var str: string
   if existsEnv("NO_COLOR"):
     str = str & shellCmd.engine & " "
