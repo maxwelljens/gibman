@@ -2,7 +2,7 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import streams, os, types, yaml, utils, unicode
+import streams, strformat, os, types, yaml, utils, unicode
 
 const DefaultConfig = slurp(".." / "default_config.yaml")
 const WadExts = [".wad", ".pk3", ".zip"]
@@ -14,7 +14,7 @@ proc loadEngine(
     if x.name == specificPreset.engine:
       shellCmd.engine = x.path
       return
-  throwError("No engine '" & specificPreset.engine & "' has been found.")
+  throwError(&"No engine '{specificPreset.engine}' has been found.")
 
 proc loadIWad(
     shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
@@ -23,7 +23,7 @@ proc loadIWad(
     if x.name == specificPreset.iwad:
       shellCmd.args.add(["-iwad", x.path])
       return
-  throwError("No IWAD '" & specificPreset.iwad & "' has been found.")
+  throwError(&"No IWAD '{specificPreset.iwad}' has been found.")
 
 proc loadWads(
     shellCmd: ref ShellCmd, config: Config, specificPreset: ConfigPresetEntry
@@ -42,11 +42,10 @@ proc loadWads(
             shellCmd.args.add(["-file", file.path])
             entryFound = true
       except OSError as e:
-        throwError("Specified path to search does not exist (" & e.msg & ")")
+        throwError(&"Specified path to search does not exist ({e.msg})")
     if not entryFound:
       echoWarn(
-        "WAD '" & wad & "' from preset '" & specificPreset.name &
-          "' not found in search list."
+        &"WAD '{wad}' from preset '{specificPreset.name}' not found in search list."
       )
     entryFound = false
 
@@ -74,15 +73,12 @@ proc createDefaultConfig() =
     createDir(getConfigDir() / "gibman")
     writeFile(configFilePath, DefaultConfig)
     echo(
-      "No configuration file was found. Created configuration file at " & configFilePath &
-        ". It contains all available information to help you ",
-      "get started with your gibman use.",
+      &"No configuration file was found. Created configuration file at {configFilePath}. It contains all available information to help you get started with your gibman use.",
     )
     quit(0)
   except IOError as e:
     throwError(
-      "Unable to place default configuration file at " & configFilePath & ": " & e.msg &
-        ". Permission error?"
+      &"Unable to place default configuration file at {configFilePath} : {e.msg}. Permission error?"
     )
 
 proc parseConfig*(preset: string): Config =
