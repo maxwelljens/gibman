@@ -32,12 +32,13 @@ proc loadWads(
     echoWarn("WADs specified in preset, but there are no paths to search.")
     return
   for wad in specificPreset.wad:
+    let lowerWad = wad.toLower()
     var entryFound = false
     for searchPath in config.search:
       try:
         for file in walkDir(searchPath, checkDir = true):
           let splitFile = file.path.splitFile()
-          if splitFile.name.toLower() == wad.toLower() and
+          if splitFile.name.toLower() == lowerWad and
               splitFile.ext.toLower() in WadExts:
             shellCmd.args.add(["-file", file.path])
             entryFound = true
