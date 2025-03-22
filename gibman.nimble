@@ -1,8 +1,8 @@
 # Package
 
-version = "2.0.0"
+version = "2.2.0"
 author = "Maxwell Jensen"
-description = "A CLI DOOM WAD manager for nerds"
+description = "A DOOM WAD manager for nerds"
 license = "EPL-2.0"
 srcDir = "src"
 bin = @["gibman"]

@@ -37,8 +37,8 @@ preset:
       - eviternity
       - brutality
   # Load additional arguments (args).
-  # For example, to make the Woof! engine run with the '-dog 2' option, you
+  # For example, to make the Woof! engine run with the '-dogs 2' option, you
   # do the following:
     args:
-      - -dog
+      - -dogs
       - 2

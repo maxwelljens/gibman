@@ -2,11 +2,11 @@
 # Licensed under European Union Public Licence 1.2.
 # For more information, consult README.md or man page
 
-import cligen, config, osproc, utils
+import cligen, config, osproc, utils, streams
 
 const Version =
   """
-gibman 2.0.0
+gibman 2.2.0
 Program written by Maxwell Jensen (c) 2025
 Licensed under European Union Public Licence 1.2.
 For more information, consult README.md"""
@@ -26,6 +26,10 @@ proc argParser(list_presets = false, preset = "", verbose = false, version = fal
     shellCmd.echoShellCmd()
 
   let process = startProcess(shellCmd.engine, "", shellCmd.args)
+  while process.peekExitCode() == -1:
+    let peekedOutput = process.peekableOutputStream()
+    if not peekedOutput.atEnd():
+      echo(readLine(peekedOutput))
   process.close()
 
 dispatch argParser,

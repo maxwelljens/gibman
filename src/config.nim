@@ -38,8 +38,7 @@ proc loadWads(
       try:
         for file in walkDir(searchPath, checkDir = true):
           let splitFile = file.path.splitFile()
-          if splitFile.name.toLower() == lowerWad and
-              splitFile.ext.toLower() in WadExts:
+          if splitFile.name.toLower() == lowerWad and splitFile.ext.toLower() in WadExts:
             shellCmd.args.add(["-file", file.path])
             entryFound = true
       except OSError as e:
@@ -74,7 +73,7 @@ proc createDefaultConfig() =
     createDir(getConfigDir() / "gibman")
     writeFile(configFilePath, DefaultConfig)
     echo(
-      &"No configuration file was found. Created configuration file at {configFilePath}. It contains all available information to help you get started with your gibman use.",
+      &"No configuration file was found. Created configuration file at {configFilePath}. It contains all available information to help you get started with your gibman use."
     )
     quit(0)
   except IOError as e:
