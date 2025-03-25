@@ -25,12 +25,8 @@ proc argParser(list_presets = false, preset = "", verbose = false, version = fal
   if verbose:
     shellCmd.echoShellCmd()
 
-  let process = startProcess(shellCmd.engine, "", shellCmd.args)
-  while process.peekExitCode() == -1:
-    let peekedOutput = process.peekableOutputStream()
-    if not peekedOutput.atEnd():
-      echo(readLine(peekedOutput))
-  process.close()
+  let process = startProcess(shellCmd.engine, "", shellCmd.args, options = {poParentStreams})
+  quit process.waitForExit()
 
 dispatch argParser,
   cmdName = "gibman",
